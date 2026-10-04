@@ -1,0 +1,42 @@
+@model Certification
+@{
+    ViewData["Title"] = "Add Certification";
+}
+<div class="admin-card" style="max-width:700px;">
+    <form asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="IssuingOrganization" class="form-label"></label>
+            <input asp-for="IssuingOrganization" class="form-control" />
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="IssueDate" class="form-label"></label>
+                <input asp-for="IssueDate" type="date" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ExpiryDate" class="form-label"></label>
+                <input asp-for="ExpiryDate" type="date" class="form-control" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="CredentialId" class="form-label"></label>
+            <input asp-for="CredentialId" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="CredentialUrl" class="form-label"></label>
+            <input asp-for="CredentialUrl" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ImageUrl" class="form-label"></label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="/images/cert-placeholder.png" />
+        </div>
+        <button type="submit" class="btn btn-signal">Save certification</button>
+        <a href="/Admin/Certifications" class="btn btn-outline-dark">Cancel</a>
+    </form>
+</div>

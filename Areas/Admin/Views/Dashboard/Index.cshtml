@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<p class="text-secondary mb-4">Welcome back, <strong>@ViewBag.AdminUsername</strong>. Here's a snapshot of your portfolio content.</p>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="num">@ViewBag.ExperienceCount</div>
+            <div class="label">Experience</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="num">@ViewBag.EducationCount</div>
+            <div class="label">Education</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="num">@ViewBag.SkillCount</div>
+            <div class="label">Skills</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="num">@ViewBag.ProjectCount</div>
+            <div class="label">Projects</div>
+        </div>
+    </div>
+</div>
+<div class="row g-3 mb-4">
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="num">@ViewBag.EventCount</div>
+            <div class="label">Events</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+            <div class="num">@ViewBag.CertificationCount</div>
+            <div class="label">Certifications</div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stat-card border-glow">
+            <div class="num">@ViewBag.UnreadMessageCount</div>
+            <div class="label">Unread Messages</div>
+        </div>
+    </div>
+</div>
+
+<div class="admin-card">
+    <h5 class="mb-3"><i class="bi bi-envelope"></i> Messages</h5>
+    <p>You have <strong>@ViewBag.UnreadMessageCount</strong> unread message(s).</p>
+    <a href="/Admin/Messages" class="btn btn-signal btn-sm">View messages</a>
+</div>
+
+<div class="row g-3 mt-1">
+    <div class="col-md-6">
+        <div class="admin-card">
+            <h6><i class="bi bi-briefcase"></i> Manage Experience</h6>
+            <p class="text-secondary small">Add, edit or remove work experience from your timeline.</p>
+            <a href="/Admin/Experience" class="btn btn-outline-dark btn-sm">Go to Experience</a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="admin-card">
+            <h6><i class="bi bi-mortarboard"></i> Manage Education</h6>
+            <p class="text-secondary small">Add, edit or remove education history from your timeline.</p>
+            <a href="/Admin/Education" class="btn btn-outline-dark btn-sm">Go to Education</a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="admin-card">
+            <h6><i class="bi bi-calendar-event"></i> Manage Events</h6>
+            <p class="text-secondary small">Add, edit or remove events from your timeline.</p>
+            <a href="/Admin/Events" class="btn btn-outline-dark btn-sm">Go to Events</a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="admin-card">
+            <h6><i class="bi bi-patch-check"></i> Manage Certifications</h6>
+            <p class="text-secondary small">Add, edit or remove certifications from your timeline.</p>
+            <a href="/Admin/Certifications" class="btn btn-outline-dark btn-sm">Go to Certifications</a>
+        </div>
+    </div>
+</div>

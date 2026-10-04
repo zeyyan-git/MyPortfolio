@@ -1,0 +1,13 @@
+@model Experience
+@{
+    ViewData["Title"] = "Delete Experience";
+}
+<div class="admin-card" style="max-width:600px;">
+    <p>Are you sure you want to remove <strong>@Model.JobTitle</strong> at <strong>@Model.Company</strong> from your timeline?</p>
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ExperienceId" />
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="/Admin/Experience" class="btn btn-outline-dark">Cancel</a>
+    </form>
+</div>

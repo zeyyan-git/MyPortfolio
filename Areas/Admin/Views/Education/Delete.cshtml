@@ -1,0 +1,13 @@
+@model Education
+@{
+    ViewData["Title"] = "Delete Education";
+}
+<div class="admin-card" style="max-width:600px;">
+    <p>Are you sure you want to remove <strong>@Model.Degree</strong> — @Model.Institution from your timeline?</p>
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="EducationId" />
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="/Admin/Education" class="btn btn-outline-dark">Cancel</a>
+    </form>
+</div>

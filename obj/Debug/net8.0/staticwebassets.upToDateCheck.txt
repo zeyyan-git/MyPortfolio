@@ -1,0 +1,8 @@
+wwwroot\css\site.css
+wwwroot\files\README.txt
+wwwroot\files\Zeyyan_Najeeb_Resume.pdf
+wwwroot\images\cert-placeholder.png
+wwwroot\images\event-placeholder.png
+wwwroot\images\profile-placeholder.png
+wwwroot\images\project-placeholder.png
+wwwroot\js\site.js

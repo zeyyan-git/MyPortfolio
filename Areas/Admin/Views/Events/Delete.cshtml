@@ -1,0 +1,13 @@
+@model Event
+@{
+    ViewData["Title"] = "Delete Event";
+}
+<div class="admin-card" style="max-width:600px;">
+    <p>Are you sure you want to remove <strong>@Model.Title</strong> from your timeline?</p>
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="EventId" />
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="/Admin/Events" class="btn btn-outline-dark">Cancel</a>
+    </form>
+</div>

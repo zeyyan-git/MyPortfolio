@@ -1,0 +1,39 @@
+@model Event
+@{
+    ViewData["Title"] = "Edit Event";
+}
+<div class="admin-card" style="max-width:700px;">
+    <form asp-action="Edit" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="EventId" />
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="EventDate" class="form-label"></label>
+                <input asp-for="EventDate" type="date" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Location" class="form-label"></label>
+                <input asp-for="Location" class="form-control" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ImageUrl" class="form-label"></label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="/images/event-placeholder.png" />
+        </div>
+        <div class="form-check mb-3">
+            <input asp-for="IsFeatured" class="form-check-input" />
+            <label asp-for="IsFeatured" class="form-check-label"></label>
+        </div>
+        <button type="submit" class="btn btn-signal">Save event</button>
+        <a href="/Admin/Events" class="btn btn-outline-dark">Cancel</a>
+    </form>
+</div>

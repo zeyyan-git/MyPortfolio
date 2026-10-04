@@ -1,0 +1,354 @@
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+    var profile = Model.Profile;
+    var whatsappNumber = "923402414292";
+    var gmailAddress = "Najeebzeyyan@gmail.com";
+}
+
+<nav class="site-nav">
+    <div class="container">
+        <a class="brand" href="#top">zeyyan<span class="dot">.</span>dev</a>
+        <button type="button" class="nav-toggle" aria-label="Toggle menu"><i class="bi bi-list"></i></button>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+</nav>
+
+<a id="top"></a>
+<section class="hero">
+    <div class="aurora"><span></span><span></span><span></span></div>
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="terminal-line">whoami<span class="caret"></span></div>
+                <h1>@(profile?.FullName ?? "Zeyyan Najeeb")</h1>
+                <div class="role">@(profile?.JobTitle ?? "Full Stack Developer | MERN & React Native")</div>
+                <p class="lede">@(profile?.Bio ?? "Welcome to my dynamic portfolio.")</p>
+                <div class="d-flex gap-3 flex-wrap mt-4">
+                    <a href="https://wa.me/@whatsappNumber" target="_blank" class="btn-whatsapp"><i class="bi bi-whatsapp"></i> Chat on WhatsApp</a>
+                    <a href="mailto:@gmailAddress" class="btn-gmail"><i class="bi bi-envelope-fill"></i> Email me</a>
+                </div>
+                <div class="d-flex gap-3 flex-wrap mt-3">
+                    @if (!string.IsNullOrWhiteSpace(profile?.ResumeUrl))
+                    {
+                        <a href="@profile.ResumeUrl" class="btn btn-outline-light-mono" target="_blank"><i class="bi bi-download me-1"></i> Download résumé</a>
+                    }
+                    <a href="#contact" class="btn btn-signal">Get in touch</a>
+                </div>
+                <div class="d-flex gap-3 mt-4">
+                    @if (!string.IsNullOrWhiteSpace(profile?.GitHubUrl))
+                    {
+                        <a href="@profile.GitHubUrl" target="_blank" class="social-link"><i class="bi bi-github fs-5"></i></a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(profile?.LinkedInUrl))
+                    {
+                        <a href="@profile.LinkedInUrl" target="_blank" class="social-link"><i class="bi bi-linkedin fs-5"></i></a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(profile?.TwitterUrl))
+                    {
+                        <a href="@profile.TwitterUrl" target="_blank" class="social-link"><i class="bi bi-twitter-x fs-5"></i></a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(profile?.InstagramUrl))
+                    {
+                        <a href="@profile.InstagramUrl" target="_blank" class="social-link"><i class="bi bi-instagram fs-5"></i></a>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-5 text-center">
+                <span class="avatar-frame">
+                    <img src="@(string.IsNullOrWhiteSpace(profile?.ProfileImageUrl) ? "/images/profile-placeholder.png" : profile.ProfileImageUrl)" class="avatar" alt="@(profile?.FullName)" onerror="this.style.display='none'" />
+                    <span class="status-chip"><span class="pulse-dot"></span> Available for work</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section">
+    <div class="container">
+        <div class="section-heading reveal">
+            <span class="mono-tag eyebrow">01 — About</span>
+            <h2>A little more <span class="gradient-text">context</span></h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-7 reveal">
+                <p>@(profile?.Bio ?? "Bio coming soon.")</p>
+            </div>
+            <div class="col-lg-5 reveal reveal-delay-1">
+                <ul class="list-unstyled mono-tag" style="line-height:2.1;">
+                    @if (!string.IsNullOrWhiteSpace(profile?.Email))
+                    {
+                        <li><i class="bi bi-envelope me-2"></i>@profile.Email</li>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(profile?.Phone))
+                    {
+                        <li><i class="bi bi-telephone me-2"></i>@profile.Phone</li>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(profile?.Address))
+                    {
+                        <li><i class="bi bi-geo-alt me-2"></i>@profile.Address</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="experience" class="section section-alt">
+    <div class="container">
+        <div class="section-heading reveal">
+            <span class="mono-tag eyebrow">02 — Experience</span>
+            <h2>Where I've <span class="gradient-text">worked</span></h2>
+        </div>
+        <div class="resume-track">
+            @foreach (var exp in Model.Experiences)
+            {
+                <div class="resume-card reveal">
+                    <div class="icon-node"><i class="bi bi-briefcase-fill"></i></div>
+                    <div class="card-body">
+                        <span class="duration">
+                            @exp.StartDate.ToString("MMM yyyy") — @(exp.IsCurrent ? "Present" : exp.EndDate?.ToString("MMM yyyy") ?? "—")
+                            @if (exp.IsCurrent)
+                            {
+                                <span class="badge-current">Current</span>
+                            }
+                        </span>
+                        <div class="title">@exp.JobTitle</div>
+                        <div class="org">@exp.Company @(!string.IsNullOrWhiteSpace(exp.Location) ? " · " + exp.Location : "")</div>
+                        @if (!string.IsNullOrWhiteSpace(exp.Description))
+                        {
+                            <p class="desc">@exp.Description</p>
+                        }
+                    </div>
+                </div>
+            }
+            @if (!Model.Experiences.Any())
+            {
+                <p class="text-muted">No experience added yet — add some from the admin dashboard.</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="education" class="section">
+    <div class="container">
+        <div class="section-heading reveal">
+            <span class="mono-tag eyebrow">03 — Education</span>
+            <h2>Where I <span class="gradient-text">studied</span></h2>
+        </div>
+        <div class="resume-track">
+            @foreach (var edu in Model.Education)
+            {
+                <div class="resume-card reveal">
+                    <div class="icon-node"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div class="card-body">
+                        <span class="duration">
+                            @edu.StartDate.ToString("MMM yyyy") — @(edu.IsCurrent ? "Present" : edu.EndDate?.ToString("MMM yyyy") ?? "—")
+                            @if (edu.IsCurrent)
+                            {
+                                <span class="badge-current">Ongoing</span>
+                            }
+                        </span>
+                        <div class="title">@edu.Degree</div>
+                        <div class="org">@edu.Institution</div>
+                        @if (!string.IsNullOrWhiteSpace(edu.Details))
+                        {
+                            <p class="desc">@edu.Details</p>
+                        }
+                    </div>
+                </div>
+            }
+            @if (!Model.Education.Any())
+            {
+                <p class="text-muted">No education added yet — add some from the admin dashboard.</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="section section-alt">
+    <div class="container">
+        <div class="section-heading reveal">
+            <span class="mono-tag eyebrow">04 — Skills</span>
+            <h2>What I work <span class="gradient-text">with</span></h2>
+        </div>
+        @{
+            var skillGroups = Model.Skills.GroupBy(s => string.IsNullOrWhiteSpace(s.Category) ? "Other" : s.Category);
+        }
+        @foreach (var group in skillGroups)
+        {
+            <div class="skill-group-label reveal">@group.Key</div>
+            <div class="row">
+                @foreach (var skill in group)
+                {
+                    <div class="col-md-6 reveal">
+                        <div class="skill-card">
+                            <div class="d-flex justify-content-between">
+                                <span class="name"><i class="bi @(string.IsNullOrWhiteSpace(skill.IconClass) ? "bi-code-slash" : skill.IconClass) me-2"></i>@skill.Name</span>
+                                <span class="mono-tag">@skill.ProficiencyLevel%</span>
+                            </div>
+                            <div class="bar-track"><div class="bar-fill" data-target="@skill.ProficiencyLevel" style="width:0%"></div></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        @if (!Model.Skills.Any())
+        {
+            <p class="text-muted">No skills added yet — add some from the admin dashboard.</p>
+        }
+    </div>
+</section>
+
+<section id="projects" class="section">
+    <div class="container">
+        <div class="section-heading reveal">
+            <span class="mono-tag eyebrow">05 — Projects</span>
+            <h2>Things I've <span class="gradient-text">built</span></h2>
+        </div>
+        <div class="row g-4">
+            @foreach (var project in Model.Projects)
+            {
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="project-card">
+                        <img src="@(string.IsNullOrWhiteSpace(project.ImageUrl) ? "/images/project-placeholder.png" : project.ImageUrl)" alt="@project.Title" onerror="this.style.display='none'" />
+                        <div class="body">
+                            <h5>@project.Title</h5>
+                            <p class="text-secondary small">@project.Description</p>
+                            @if (!string.IsNullOrWhiteSpace(project.TechStack))
+                            {
+                                <div class="mb-2">
+                                    @foreach (var tech in project.TechStack.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                                    {
+                                        <span class="tech-pill">@tech</span>
+                                    }
+                                </div>
+                            }
+                            <div class="d-flex gap-3">
+                                @if (!string.IsNullOrWhiteSpace(project.ProjectUrl) && project.ProjectUrl != "#")
+                                {
+                                    <a href="@project.ProjectUrl" target="_blank"><i class="bi bi-box-arrow-up-right"></i> Live</a>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(project.GitHubUrl))
+                                {
+                                    <a href="@project.GitHubUrl" target="_blank"><i class="bi bi-github"></i> Code</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (!Model.Projects.Any())
+            {
+                <p class="text-muted">No projects added yet — add some from the admin dashboard.</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="timeline" class="section section-alt">
+    <div class="container">
+        <div class="section-heading reveal">
+            <span class="mono-tag eyebrow">06 — Timeline</span>
+            <h2>Events &amp; <span class="gradient-text">certifications</span></h2>
+            <p class="text-secondary mt-2">A chronological log of things I've attended, hosted or earned — most recent first.</p>
+        </div>
+
+        <div class="commit-log">
+            @{
+                var timelineItems = Model.Events.Select(e => new { Kind = "event", Date = e.EventDate, Title = e.Title, Sub = (string?)e.Location, Desc = e.Description, Featured = e.IsFeatured })
+                    .Concat(Model.Certifications.Select(c => new { Kind = "cert", Date = (DateTime)c.IssueDate, Title = c.Title, Sub = (string?)c.IssuingOrganization, Desc = c.CredentialUrl, Featured = false }))
+                    .OrderByDescending(x => x.Date)
+                    .ToList();
+            }
+            @foreach (var item in timelineItems)
+            {
+                <div class="commit-item reveal @(item.Kind == "cert" ? "is-cert" : "")">
+                    <div class="node"></div>
+                    <div class="commit-date">@item.Date.ToString("dd MMM yyyy")</div>
+                    <div class="commit-title">
+                        <span class="badge-kind @(item.Kind == "cert" ? "badge-cert" : "badge-event")">@(item.Kind == "cert" ? "Certification" : "Event")</span>
+                        @item.Title
+                        @if (item.Featured)
+                        {
+                            <span class="badge-kind badge-event"><i class="bi bi-star-fill"></i> Featured</span>
+                        }
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(item.Sub))
+                    {
+                        <div class="commit-meta">@item.Sub</div>
+                    }
+                    @if (item.Kind == "event" && !string.IsNullOrWhiteSpace(item.Desc))
+                    {
+                        <div class="commit-meta mt-1">@item.Desc</div>
+                    }
+                </div>
+            }
+            @if (!timelineItems.Any())
+            {
+                <p class="text-muted">Nothing here yet — add events and certifications from the admin dashboard.</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="section">
+    <div class="container">
+        <div class="contact-panel reveal">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <span class="mono-tag" style="color:var(--grad-c)">07 — Contact</span>
+                    <h2 class="text-white mt-2">Let's work <span class="gradient-text">together</span></h2>
+                    <p class="text-white-50">Have a project in mind, or just want to say hi? Drop a message below, or reach out directly — I read everything myself.</p>
+                    <div class="d-flex gap-3 flex-wrap mt-4">
+                        <a href="https://wa.me/@whatsappNumber" target="_blank" class="btn-whatsapp"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+                        <a href="mailto:@gmailAddress" class="btn-gmail"><i class="bi bi-envelope-fill"></i> Email</a>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    @if (TempData["ContactSuccess"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["ContactSuccess"]</div>
+                    }
+                    @if (TempData["ContactError"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["ContactError"]</div>
+                    }
+                    <form asp-controller="Home" asp-action="Contact" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Name</label>
+                                <input class="form-control" name="SenderName" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input class="form-control" type="email" name="SenderEmail" required />
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Subject</label>
+                                <input class="form-control" name="Subject" />
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" name="Body" rows="4" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-signal">Send message</button>
+                                <span class="text-white-50 small ms-2"><i class="bi bi-shield-check"></i> I'll be notified in my admin dashboard instantly.</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
